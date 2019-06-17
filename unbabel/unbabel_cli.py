@@ -24,7 +24,7 @@ def main(argvs):
 
 
     #get the data in the correct format with the correct values
-    responses = getAverege(translations, data_parsed.window_size)
+    responses = getAverage(translations, data_parsed.window_size, data_parsed.client)
 
     #print the expected output
     output(responses)
@@ -32,7 +32,8 @@ def main(argvs):
     return True
 
 
-def getAverege(translations: list, window_size: int) -> list:
+
+def getAverage(translations: list, window_size: int, client: str or None) -> list:
     """
     Get average delivery time to each minute
     :param translations:
@@ -48,13 +49,18 @@ def getAverege(translations: list, window_size: int) -> list:
     for date in date_range:
 
         translation_data = getTranslationsByRangeDate(date, window_size, translations)
-        average_delivery_time = getAveregeDeliveryTime(translation_data)
+
+        #if client is requested by the user, the code will call getTranslationsByClientName to filter all translation data
+        if client != None:
+            translation_data = getTranslationsByClientName(client, translation_data)
+
+        average_delivery_time = getAverageDeliveryTime(translation_data)
 
         responses.append(ResponseData(date, average_delivery_time))
 
     return responses
 
-def getAveregeDeliveryTime(translation_data):
+def getAverageDeliveryTime(translation_data):
     """
     Get average delivery time for a list of TranslationData
     :param a list of TranslationData:
@@ -82,6 +88,17 @@ def getTranslationsByRangeDate(date, window_size, translations):
     """
     return list(filter(lambda td: date - timedelta(minutes=window_size) < td.getTimestamp() < date, translations))
 
+def getTranslationsByClientName(client, translations):
+    """
+    filters a list by the client name value
+    :param client name:
+    :param translations:
+    :return list of TranslationData:
+    """
+    return list(filter(lambda td: td.getClientName() == client, translations))
+
+
+
 
 
 def output(responses: list):
@@ -105,7 +122,7 @@ def run():
         main(sys.argv)
     except KeyboardInterrupt:
         sys.exit(0)
-    except Exception:
-        print("unexpected problem")
+    except Exception as e:
+        print("Unexpected problem")
         sys.exit(0)
 

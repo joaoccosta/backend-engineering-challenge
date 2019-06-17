@@ -24,20 +24,20 @@ class TestUnbabel(unittest.TestCase):
                 :return: returns nothing
                 """
         test_translations = []
-        self.assertEqual(unbabel_cli.getAveregeDeliveryTime(test_translations), 0.0)
+        self.assertEqual(unbabel_cli.getAverageDeliveryTime(test_translations), 0.0)
 
         test_translations.append(unbabel_cli.TranslationData(
             {"timestamp": "2018-12-26 18:11:08.509654", "translation_id": "5aa5b2f39f7254a75aa5",
              "source_language": "en", "target_language": "fr", "client_name": "easyjet",
              "event_name": "translation_delivered", "nr_words": 30, "duration": 20}))
-        self.assertEqual(unbabel_cli.getAveregeDeliveryTime(test_translations), 20.0)
+        self.assertEqual(unbabel_cli.getAverageDeliveryTime(test_translations), 20.0)
 
         test_translations.append(unbabel_cli.TranslationData(
             {"timestamp": "2018-12-26 18:11:08.509654", "translation_id": "5aa5b2f39f7254a75aa5",
              "source_language": "en", "target_language": "fr", "client_name": "easyjet",
              "event_name": "translation_delivered", "nr_words": 30, "duration": 50}))
 
-        self.assertEqual(unbabel_cli.getAveregeDeliveryTime(test_translations), 35.0)
+        self.assertEqual(unbabel_cli.getAverageDeliveryTime(test_translations), 35.0)
 
     def test_filter_translations_by_date(self):
         """
@@ -54,7 +54,7 @@ class TestUnbabel(unittest.TestCase):
             {"timestamp": "2018-12-26 18:11:08.509654", "translation_id": "5aa5b2f39f7254a75aa5",
              "source_language": "en", "target_language": "fr", "client_name": "easyjet",
              "event_name": "translation_delivered", "nr_words": 30, "duration": 20}))
-        self.assertEqual(unbabel_cli.getAveregeDeliveryTime(test_translations), 20.0)
+        self.assertEqual(unbabel_cli.getAverageDeliveryTime(test_translations), 20.0)
 
         test_translations.append(unbabel_cli.TranslationData(
             {"timestamp": "2018-12-26 18:50:08.509654", "translation_id": "5aa5b2f39f7254a75aa5",
