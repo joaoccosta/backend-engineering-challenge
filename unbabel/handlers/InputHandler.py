@@ -86,6 +86,9 @@ def parseInput(argv):
     parser.add_argument("-w", "--window_size", dest="window_size", required=True,
                         help="window size to calculate average translation duration", type=int)
 
+    parser.add_argument("-c", "--client", dest="client", required=False,
+                        help="Will only calculate the average translation duration for the inputed client name", type=str)
+
     return parser.parse_args(argv[1:])
 
 

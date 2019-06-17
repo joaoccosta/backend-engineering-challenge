@@ -71,4 +71,5 @@ $ unbabel --help
 # New Features!
 
   - If the user inserted a path to a file that does not exist or is not in the correct format, the application will ask the user for a new path
+  - It's possible to filter results by clients name
 
